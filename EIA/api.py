@@ -61,7 +61,7 @@ class API(object):
             if isinstance(filters_to_keep, str):
                 filters_to_keep = filters_to_keep.split()
             for word in filters_to_keep:
-                for key, values in d.items():
+                for key, values in list(d.items()):
                     if str(key).lower().find(word.lower()) == -1 \
                             and str(values).lower().find(word.lower()) == -1:
                         try:
@@ -75,7 +75,7 @@ class API(object):
             if isinstance(filters_to_remove, str):
                 filters_to_remove = filters_to_remove.split()
             for word in filters_to_remove:
-                for key, values in d.items():
+                for key, values in list(d.items()):
                     if (str(key).lower().find(word.lower()) != -1) \
                             or (str(values).lower().find(word.lower()) != -1):
                         try:
@@ -250,7 +250,7 @@ class API(object):
         url_data = 'http://api.EIA.gov/series/?series_id={}&api_key={}&out=json'
         values_dict = {}
         if categories_dict is not None:
-            for series_id in categories_dict.keys():
+            for series_id in list(categories_dict.keys()):
                 search = requests.get(url_data.format(
                     categories_dict[series_id]['Series ID'],
                     self.token))
@@ -269,7 +269,7 @@ class API(object):
                                  for x in search.json()['series'][0]['data']]
                     lst_values = [x[1] for x in
                                   search.json()['series'][0]['data']]
-                    dates_values_dict = dict(zip(lst_dates, lst_values))
+                    dates_values_dict = dict(list(zip(lst_dates, lst_values)))
                     values_dict[search.json()['series'][0]['name'] +
                                 " (" +
                                 search.json()['series'][0]['units'] +
@@ -304,7 +304,7 @@ class API(object):
         values_dict = {}
 
         if categories_dict is not None:
-            for series_id in categories_dict.keys():
+            for series_id in list(categories_dict.keys()):
                 search = requests.get(url_data.format(
                     categories_dict[series_id]['Series ID'],
                     self.token))
@@ -328,7 +328,7 @@ class API(object):
                                  for x in search.json()['series'][0]['data']]
                     lst_values = [x[1] for x in
                                   search.json()['series'][0]['data']]
-                    dates_values_dict = dict(zip(lst_dates, lst_values))
+                    dates_values_dict = dict(list(zip(lst_dates, lst_values)))
                     values_dict[search.json()['series'][0]['name'] +
                                 " (" +
                                 search.json()['series'][0]['units'] +
@@ -360,7 +360,7 @@ class API(object):
         url_data = 'http://api.EIA.gov/series/?series_id={}&api_key={}&out=json'
         values_dict = {}
         if categories_dict is not None:
-            for series_id in categories_dict.keys():
+            for series_id in list(categories_dict.keys()):
                 search = requests.get(url_data.format(
                     categories_dict[series_id]['Series ID'],
                     self.token))
@@ -384,7 +384,7 @@ class API(object):
                                  for x in search.json()['series'][0]['data']]
                     lst_values = [x[1] for x in
                                   search.json()['series'][0]['data']]
-                    dates_values_dict = dict(zip(lst_dates, lst_values))
+                    dates_values_dict = dict(list(zip(lst_dates, lst_values)))
                     values_dict[search.json()['series'][0]['name'] +
                                 " (" +
                                 search.json()['series'][0]['units'] +
@@ -424,7 +424,7 @@ class API(object):
                          for x in search.json()['series'][0]['data']]
             lst_values = [x[1] for x in
                           search.json()['series'][0]['data']]
-            dates_values_dict = dict(zip(lst_dates, lst_values))
+            dates_values_dict = dict(list(zip(lst_dates, lst_values)))
             values_dict[search.json()['series'][0]['name'] +
                         " (" +
                         search.json()['series'][0]['units'] +
